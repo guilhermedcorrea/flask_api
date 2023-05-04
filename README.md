@@ -6,7 +6,14 @@
 <br>$env:FLASK_APP = "app:create_app()"<br/>
 <br>flask run --host=0.0.0.0<br/>
 
+<br>flask db init<br/>
+<br>flask db migrate -m "Initial migration."<br/>
+<br>flask db upgrade<br/>
 
+
+#ENDPOINTS
+#exemplo parametro
+<br>flask run --host=0.0.0.0<br/>
 ´´´python
 {
  "role": "user", "content": "Ola",
