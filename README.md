@@ -6,9 +6,12 @@
 <br>$env:FLASK_APP = "app:create_app()"<br/>
 <br>flask run --host=0.0.0.0<br/>
 
+#Migrações banco de dados
+
 <br>flask db init<br/>
 <br>flask db migrate -m "Initial migration."<br/>
 <br>flask db upgrade<br/>
+
 
 
 #ENDPOINTS
