@@ -11,6 +11,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 openai.Model.list()
 ID_MODEL = 'gpt-3.5-turbo'
 
+
 @GPT.route("/api/v1/models/gpt")
 def get_gpt_models():
     url = r"https://api.openai.com/v1/models"
@@ -35,7 +36,6 @@ def get_gpt_models():
 
 @GPT.route("/api/v1/msgs/gpt", methods=['GET','POST'])
 def return_msgs():
-    
     store_data = request.get_json()
     print(store_data['Mensagem'])
     url = r"https://api.openai.com/v1/models"
@@ -66,27 +66,30 @@ def return_msgs():
     return response
         
 
-@GPT.route("/api/v1/completion/gpt")
+@GPT.route("/api/v1/completion/gpt/top_p", methods=['GET','POST'])
 def return_completions():
+    store_data = request.get_json()
+    print(store_data)
+    
     """Realizando Pedidos"""
-    url = r"https://api.openai.com/v1/models"
+ 
+    url = "https://api.openai.com/v1/chat/completions"
 
     payload = json.dumps({
     "model": f"{ID_MODEL}",
-    "prompt": "create story: Write a short story on cyndrela",
-    "max_tokens": 4000,
-    "temperature": 0,
-    "top_p": 1,
-    "n": None,
+    "messages": [{"role": f"{store_data['role']}", "content": f"{store_data['content']}"}],
+    "temperature" : 1.0,
+    "top_p":1.0,
+    "n" : 1,
     "stream": False,
-    "logprobs": None,
-    "stop": None
+    "presence_penalty":0,
+    "frequency_penalty":0,
     })
+
     headers = {
     'Content-Type': 'application/json',
     'Authorization': f'Bearer {os.getenv("OPENAI_API_KEY")}'
     }
-
     response = requests.request("POST", url, headers=headers, data=payload)
 
     data = response.json()
@@ -105,6 +108,6 @@ def return_completions():
         }'
         """
         return
-    
+  
     return jsonify(data)
     
