@@ -26,5 +26,4 @@ def create_app():
     app.register_blueprint(GPT)
     app.register_blueprint(auth)
     
-   
     return app
