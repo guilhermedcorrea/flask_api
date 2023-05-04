@@ -3,6 +3,8 @@ import os
 import openai
 import requests
 import json
+from flask_jwt_extended import jwt_required
+
 
 GPT = Blueprint("gpt",__name__)
 
@@ -13,6 +15,7 @@ ID_MODEL = 'gpt-3.5-turbo'
 
 
 @GPT.route("/api/v1/models/gpt")
+#@jwt_required()
 def get_gpt_models():
     url = r"https://api.openai.com/v1/models"
 
@@ -35,6 +38,7 @@ def get_gpt_models():
 
 
 @GPT.route("/api/v1/msgs/gpt", methods=['GET','POST'])
+#@jwt_required()
 def return_msgs():
     store_data = request.get_json()
     print(store_data['Mensagem'])
@@ -57,15 +61,15 @@ def return_msgs():
     response = requests.request("POST", url, headers=headers, data=payload)
     response = response.json()
         
-        
     def msgs(response):
         """Recebe mensagens vindas pela requisição"""
         print(response)
         
-    
     return response
         
 
+
+"""Exemplo"""
 @GPT.route("/api/v1/completion/gpt/top_p", methods=['GET','POST'])
 def return_completions():
     store_data = request.get_json()

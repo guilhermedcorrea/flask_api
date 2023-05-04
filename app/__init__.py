@@ -1,9 +1,10 @@
 from flask import Flask
-from config import SQLALCHEMY_DATABASE_URI, SECRET_KEY
-from .extensions import db
+from config import SQLALCHEMY_DATABASE_URI, SECRET_KEY,JWT_TOKEN
+from .extensions import db,jwt
 
 
 from .api.gpt import GPT
+#from .api.login import auth
     
 def create_app():
     app = Flask(__name__, instance_relative_config=True)
@@ -15,12 +16,14 @@ def create_app():
     app.config['DEBUG'] = True
     app.config['SECRET_KEY'] = SECRET_KEY
     
-    #app.config["JWT_SECRET_KEY"]
+    app.config["JWT_SECRET_KEY"] = JWT_TOKEN
     
     db.init_app(app)
+    jwt.init_app(app)
     
 
     app.register_blueprint(GPT)
+    #app.register_blueprint(auth)
     
         
     return app
