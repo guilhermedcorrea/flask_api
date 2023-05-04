@@ -13,7 +13,7 @@ def register_handlers(app):
 
     @app.errorhandler(404)
     def resource_not_found(e):
-        return jsonify({"erro":"eroooooooooooooo"}), 404
+        return jsonify({"erro":"erro"}), 404
 
     
     @app.errorhandler(405)
