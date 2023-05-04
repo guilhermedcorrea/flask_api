@@ -17,16 +17,16 @@
 #ENDPOINTS
 #exemplo parametro
 <br>flask run --host=0.0.0.0<br/>
-´´´python
+```python
 {
  "role": "user", "content": "Ola",
   "max_tokens": 4000,
   "temperature": 0,
   "top_p": 1}
-´´´
+```
 
 #Autenticando
-´´´python
+```Python
 def login():
     username = request.json.get("username", None)
     password = request.json.get("password", None)
@@ -36,11 +36,11 @@ def login():
 
     access_token = create_access_token(identity=username)
     return jsonify(access_token=access_token)
-´´´
+```
 
 
 #Factory
-´´´python
+```python
 from .api.gpt import GPT
 from .api.login import auth
 migrate = Migrate()
@@ -65,4 +65,4 @@ def create_app():
     app.register_blueprint(auth)
     
     return app
-´´´
+```
