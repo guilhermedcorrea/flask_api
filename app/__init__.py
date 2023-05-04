@@ -3,12 +3,10 @@ from ..config import SQLALCHEMY_DATABASE_URI, SECRET_KEY,JWT_TOKEN
 from .extensions import db,jwt
 from flask_migrate import Migrate
 
-#from .api.gpt import GPT
-#from .api.login import auth
+from .api.gpt import GPT
+from .api.login import auth
 migrate = Migrate()
   
-    
-    
 def create_app():
     app = Flask(__name__, instance_relative_config=True)
     app.config["PROPAGATE_EXCEPTIONS"] = True
@@ -25,8 +23,8 @@ def create_app():
     jwt.init_app(app)
     migrate.init_app(app, db)
 
-    #app.register_blueprint(GPT)
-    #app.register_blueprint(auth)
+    app.register_blueprint(GPT)
+    app.register_blueprint(auth)
     
-        
+   
     return app
